@@ -87,3 +87,16 @@ code[class*="language-"],
         word-break: break-all;
         word-wrap: break-word;
 }
+
+.FIZZ {
+    color:#0A71B8
+}
+
+.BUZZ {
+    color:#FFDF2B
+}
+
+.FIZZBUZZ {
+    color:orangered;
+    font-weight: bold;
+}

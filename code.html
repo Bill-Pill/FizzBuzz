@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Exercise by Billy DeLashmutt</title>
+    <title>FizzBuzz: A Coding Exercise by Billy DeLashmutt</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,10 +45,10 @@
                         <a class="nav-link active" aria-current="page" href="code.html">Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/Bill-Pill/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://billpill-portfolio.netlify.app/">About</a>
+                        <a class="nav-link" target="_blank" href="https://billydelashmutt.com/">About</a>
                     </li>
                 </ul>
             </div>
@@ -57,22 +57,144 @@
     <!-- === Main Section === -->
     <main class="flex-shrink-0">
         <div class="container py-5 px-5 mt-5">
-<h2 class="border-1 border-bottom border-dark">The Code for APP NAME.</h2>            
+<h2 class="border-1 border-bottom border-dark">The Code for FizzBuzz</h2>            
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-javascript">
-                            //Call Hello World
-                            function helloWorld(){
-                                alert("Hey World!");
-                            }
+                            // Grab Fizz Buzz input values
+function getValues() {
+    let fizzValue = document.getElementById("fizzValue").value;
+    let buzzValue = document.getElementById("buzzValue").value;
+
+    // Convert to Int
+    fizzValue = parseInt(fizzValue);
+    buzzValue = parseInt(buzzValue);
+
+    // Validate that values are indeed numbers
+    if(Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
+        // Call fizzBuzz to get our result data
+        let fbData = fizzBuzzC(fizzValue, buzzValue);
+        // Call displayResults to display result data to page
+        displayResults(fbData)
+    } else {
+        alert("You must use integers for values")
+    }
+}
+
+// One of three functions for "FizzBuzzing" (fizzBuzz, fizzBuzzB, or fizzBuzzC)
+// Solve FizzBuzz 1-100 with If statement
+function fizzBuzz(fizzVal, buzzVal) {
+    let returnArr = [];
+
+    // Check numbers 1-100 if number is fizzbuzzable
+    for (let i = 1; i <= 100; i++) {
+        // Check if divisible by Fizz AND Buzz value first
+        if (i % fizzVal == 0 && i % buzzVal == 0) {
+            returnArr.push('FIZZBUZZ');
+        } else if (i % fizzVal == 0) {
+            returnArr.push('FIZZ');
+        } else if (i % buzzVal == 0) {
+            returnArr.push('BUZZ');
+        } else {
+            returnArr.push(i);
+        }
+    }
+    return returnArr;
+}
+
+// FizzBuzz using Switch statement in place of If
+function fizzBuzzB(fizzVal, buzzVal) {
+    let returnArr = [];
+    let Fizz = false;
+    let Buzz = false;
+
+    for (let i = 1; i <= 100; i++) {
+
+        Fizz = i % fizzVal == 0;
+        Buzz = i % buzzVal == 0;
+
+        switch(true)
+        {
+            case Fizz && Buzz:{
+                returnArr.push('FIZZBUZZ');
+                break;
+            }
+            case Fizz:{
+                returnArr.push('FIZZ');
+                break;
+            }
+            case Buzz:{
+                returnArr.push('BUZZ');
+                break;
+            }
+            default:{
+                returnArr.push(i)
+                break;
+            }
+        }
+    }
+    return returnArr;
+}
+
+// FizzBuzz using ternary operator in place of If
+function fizzBuzzC(fizzVal, buzzVal) {
+    let returnArr = [];
+
+    for (let i = 1; i <= 100; i++) {
+        let value = ((i % fizzVal == 0 ? 'FIZZ' : '') + (i % buzzVal == 0 ? 'BUZZ' : '') || i )
+        returnArr.push(value)
+    }
+    return returnArr;
+}
+
+// Display Results
+function displayResults(fbResults) {
+    // Get table body from page
+    let tableBody = document.getElementById("results");
+
+    // Get template row
+    let templateRow = document.getElementById("fbTemplate");
+
+    // Clear table first
+    tableBody.innerHTML = "";
+
+    for (let i = 0; i < fbResults.length; i += 5) {
+        let tableRow = document.importNode(templateRow.content, true);
+
+        // grab the TDs to put into array
+        let rowCols = tableRow.querySelectorAll("td");
+        rowCols[0].classList.add(fbResults[i]);
+        rowCols[0].textContent = fbResults[i];
+
+        rowCols[1].classList.add(fbResults[i + 1]);
+        rowCols[1].textContent = fbResults[i + 1];
+
+        rowCols[2].classList.add(fbResults[i + 2]);
+        rowCols[2].textContent = fbResults[i + 2];
+
+        rowCols[3].classList.add(fbResults[i + 3]);
+        rowCols[3].textContent = fbResults[i + 3];
+
+        rowCols[4].classList.add(fbResults[i + 4]);
+        rowCols[4].textContent = fbResults[i + 4];
+
+        // Apply TDs to current row on page
+        tableBody.appendChild(tableRow);
+    }
+}
                         </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hey World!"</p>
+                    <p>The dipslayed code shows the JavaScript used for this project. The main functions are outlined below.</p>
+                    <h5>getValues</h5>
+                    <p><strong>getValues</strong> is executed when the <strong>'Fizzbuzz!'</strong> button is clicked on the app. It grabs the Fizz and Buzz values from the input and validates them as integers. Once validated, these numbers are then passed into the <strong>fizzBuzz</strong> function(the array returned from this will be saved as <strong>fbData</strong>).</p>
+                    <h5>fizzBuzz(multiple)</h5>
+                    <p>There are three functions to <strong>fizzBuzz</strong>, each structured using a different style of conditional but all 3 leading to the same result. <strong>fizzBuzz</strong> uses a standard if/else statement, <strong>fizzBuzzB</strong> uses a case/switch statement, and <strong>fizzBuzzC</strong>(my favorite) uses a ternary operator.</p>
+                    <p>I won't get into the details of each; instead going into the logic comprising all three. We need to loop through all integers from 1-100, so a FOR loop is the simplest choice here. Order of our logic is important - we MUST check first if the current number is both divisible by FIZZ and BUZZ. Then we can drill down if necessary to see if the number fulfills the FIZZ or BUZZ condition alone. If any of the above pass, we save the FIZZ and/or BUZZ to our array. Failing that, we save the current number in our results array. Continue looping through all numbers until complete, then return the result array <strong>returnArr.</strong></p>
+                    <h5>displayResults</h5>
+                    <p><strong>displayResults</strong> takes the array returned from the previous function to bring our numbers on the page.  We use a template HTML element to outline what we want to replicate(a row of 5 columns). We loop through our <strong>fbResults</strong> array 5 values at a time, applying the values to our HTML results table and applying a class for styling.</p>
                 </div>
             </div>
         </div>
